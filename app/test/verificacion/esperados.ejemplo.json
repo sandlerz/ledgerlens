@@ -1,0 +1,8 @@
+{
+  "nota": "Ejemplo con datos inventados. Copia este archivo como esperados.json y anota los valores correctos de tus propios comprobantes (archivo relativo a la carpeta Comprobantes). null = no se puntúa; referencia vacía = el comprobante no la muestra.",
+  "comprobantes": [
+    { "archivo": "Local Centro/nequi_ejemplo.jpg", "formato": "nequi", "fecha": "2026-09-15", "valor": 1260000, "referencia": "M12345678", "proveedor": "Distribuidora del Norte SAS" },
+    { "archivo": "Local Centro/wompi_ejemplo.jpg", "formato": "wompi", "fecha": "2026-09-14", "valor": 2150000, "referencia": "445566", "proveedor": "Servicios del Caribe SAS" },
+    { "archivo": "Local Norte/correo_ejemplo.jpg", "formato": "correo bancolombia", "fecha": "2026-09-15", "valor": 1500000, "referencia": "", "proveedor": null }
+  ]
+}

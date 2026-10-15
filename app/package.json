@@ -1,0 +1,16 @@
+{
+  "name": "ledgerlens",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lee comprobantes de pago (imágenes), permite revisarlos y exporta a Excel",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test \"test/*.test.js\"",
+    "comparar": "node herramientas/comparar.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2"
+  }
+}

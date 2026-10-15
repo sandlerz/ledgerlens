@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comprobantes</title>
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+  <body>
+    <header class="barra">
+      <div class="marca">
+        <h1>Comprobantes</h1>
+        <button id="abrirCarpeta" class="enlace" title="Abrir la carpeta en Finder">Abrir carpeta</button>
+        <span id="estadoIA" class="chip-ia" hidden></span>
+      </div>
+      <div class="acciones">
+        <button id="abrirProveedores">Proveedores</button>
+        <button id="releer" hidden title="Vuelve a leer con la IA los comprobantes por revisar (no toca lo que ya corregiste)">
+          Releer con IA <span id="pendientesIA" class="insignia suave"></span>
+        </button>
+        <button id="procesar" class="primario">Procesar nuevas <span id="nuevas" class="insignia" hidden></span></button>
+        <button id="exportar">Descargar Excel</button>
+      </div>
+    </header>
+
+    <div id="progreso" class="progreso" hidden>
+      <div class="pista"><div id="progresoBarra"></div></div>
+      <span id="progresoTexto"></span>
+    </div>
+
+    <section class="filtros">
+      <select id="fLocal" aria-label="Local"></select>
+      <select id="fProveedor" aria-label="Proveedor"></select>
+      <select id="fEstado" aria-label="Estado">
+        <option value="">Todos los estados</option>
+        <option value="por_revisar">Por revisar</option>
+        <option value="revisado">Revisados</option>
+      </select>
+      <label>Desde <input type="date" id="fDesde" /></label>
+      <label>Hasta <input type="date" id="fHasta" /></label>
+      <input type="search" id="fTexto" placeholder="Buscar referencia, proveedor o archivo" />
+      <div id="resumen" class="resumen"></div>
+    </section>
+
+    <main id="principal">
+      <div class="tabla-caja">
+        <table>
+          <thead>
+            <tr>
+              <th>Local</th>
+              <th>Fecha</th>
+              <th class="num">Valor</th>
+              <th>Referencia</th>
+              <th>Proveedor / destinatario</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="filas"></tbody>
+        </table>
+        <div id="vacio" class="estado-vacio" hidden></div>
+      </div>
+
+      <aside id="detalle" class="detalle" hidden>
+        <div class="detalle-cabecera">
+          <div id="meta" class="meta"></div>
+          <button id="cerrar" class="icono" title="Cerrar (Esc)" aria-label="Cerrar">×</button>
+        </div>
+        <div id="visor" class="visor">
+          <div id="lienzo" class="lienzo"><img id="imagen" alt="Comprobante" /></div>
+        </div>
+        <div class="visor-controles">
+          <button data-zoom="-1" title="Alejar">−</button>
+          <span id="zoomTexto">100%</span>
+          <button data-zoom="1" title="Acercar">+</button>
+          <button id="girar" title="Girar la imagen">Girar</button>
+          <button id="ajustar" title="Ver la imagen completa">Ajustar</button>
+        </div>
+
+        <form id="formulario" autocomplete="off">
+          <div id="avisos"></div>
+          <div class="campos">
+            <label data-campo="fecha">Fecha <input type="date" name="fecha" /></label>
+            <label data-campo="valor">Valor <input name="valor" inputmode="decimal" placeholder="$ 0" /></label>
+            <label data-campo="referencia" class="ancho">Referencia <input name="referencia" /></label>
+            <label data-campo="proveedor" class="ancho"
+              >Proveedor / destinatario <select name="proveedorId"></select>
+              <small id="pistaProveedor" class="pista-proveedor"></small>
+            </label>
+          </div>
+          <div class="botones">
+            <button type="submit" class="primario">Revisado y siguiente <kbd>Enter</kbd></button>
+            <button type="button" id="pendiente">Volver a “por revisar”</button>
+          </div>
+          <details class="texto-ocr">
+            <summary>Texto leído <small>(clic en una línea para copiarla al campo activo)</small></summary>
+            <div id="textoOcr"></div>
+          </details>
+        </form>
+      </aside>
+    </main>
+
+    <dialog id="dlgProveedores" class="dialogo">
+      <div class="dialogo-cabecera">
+        <h2>Proveedores</h2>
+        <button type="button" class="icono" id="cerrarProveedores" aria-label="Cerrar">×</button>
+      </div>
+      <p class="ayuda">
+        Cada proveedor se reconoce por su <strong>cuenta o llave</strong>, su <strong>convenio</strong> o su nombre.
+        Cuando asignas un proveedor a un comprobante, la app aprende su cuenta y la próxima vez lo reconoce sola.
+      </p>
+      <form id="formNuevoProveedor" class="nuevo-proveedor">
+        <input name="nombre" placeholder="Nombre del nuevo proveedor" required />
+        <button type="submit">Agregar</button>
+      </form>
+      <div id="listaProveedores" class="lista-proveedores"></div>
+    </dialog>
+
+    <div id="aviso" class="toast" hidden></div>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

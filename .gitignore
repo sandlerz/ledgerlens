@@ -1,0 +1,16 @@
+# Receipts: the folder exists in the repo, but its contents are never committed
+Comprobantes/*
+!Comprobantes/.gitkeep
+
+# App data: transactions, payees with their accounts, backups and local config
+app/data/
+
+# Verification set with real values from your receipts (only the example is committed)
+app/test/verificacion/esperados.json
+
+# Generated
+app/node_modules/
+app/ocr/ocr
+
+# macOS
+.DS_Store
